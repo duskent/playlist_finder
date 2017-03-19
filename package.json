@@ -1,5 +1,5 @@
 {
-  "name": "playlist finder application",
+  "name": "playlist_finder_application",
   "version": "1.0.0",
   "description": "Application for searching songs withing the provided text",
   "main": "index.js",
