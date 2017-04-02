@@ -1,80 +1,38 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var nodeExternals = require('webpack-node-externals');
+'use strict'
 
-var isProduction = process.env.NODE_ENV === 'production';
-var productionPluginDefine = isProduction ? [
-  new webpack.DefinePlugin({'process.env': {'NODE_ENV': JSON.stringify('production')}})
-] : [];
-var clientLoaders = isProduction ? productionPluginDefine.concat([
-  new webpack.optimize.DedupePlugin(),
-  new webpack.optimize.OccurrenceOrderPlugin(),
-  new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: false })
-]) : [];
+var path = require('path')
+var webpack = require('webpack')
 
-var commonLoaders = [
-  {
-    test: /\.json$/,
-    loader: 'json-loader'
-  }
-];
-
-module.exports = [
-  {
-    entry: './src/server.js',
-    output: {
-      path: './dist',
-      filename: 'server.js',
-      libraryTarget: 'commonjs2',
-      publicPath: '/'
-    },
-    target: 'node',
-    node: {
-      console: false,
-      global: false,
-      process: false,
-      Buffer: false,
-      __filename: false,
-      __dirname: false
-    },
-    externals: nodeExternals(),
-    plugins: productionPluginDefine,
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          loader: 'babel'
-        }
-      ].concat(commonLoaders)
-    }
+module.exports = {
+  devServer: {
+    contentBase: './dist'
   },
-  {
-    entry: './src/app/browser.js',
-    output: {
-      path: './dist/assets',
-      publicPath: '/',
-      filename: 'bundle.js'
-    },
-    plugins: clientLoaders.concat([
-      new ExtractTextPlugin('index.css', {
-        allChunks: true
-      })
-    ]),
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'babel'
-        },
-        {
-          test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('css!sass')
+
+  entry: [
+    './src/client/index.jsx'
+  ],
+
+  output: {
+    filename: 'bundle.js',
+    publicPath: '/',
+    path: path.resolve(__dirname, 'dist')
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react']
         }
-      ]
-    },
-    resolve: {
-      extensions: ['', '.js', '.jsx']
-    }
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader',
+        exclude: /node_modules/
+      }
+    ]
   }
-];
+}
