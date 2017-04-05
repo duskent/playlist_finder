@@ -29,6 +29,18 @@ module.exports = {
         }
       },
       {
+        test: /\.svg/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(png|jpe?g|eot|ttf|woff2?)$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
         test: /\.scss$/,
         loader: 'style-loader!css-loader!sass-loader',
         exclude: /node_modules/

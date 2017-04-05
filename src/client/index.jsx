@@ -1,15 +1,17 @@
 import React, {Component} from 'react'
 import reactDOM from 'react-dom'
+import {Grid, PageHeader} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/main.scss'
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>
+      <Grid>
+        <PageHeader>
           Hello World
-        </h1>
-      </div>
+        </PageHeader>
+      </Grid>
     )
   }
 }
