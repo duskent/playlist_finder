@@ -1,22 +1,17 @@
+import 'babel-polyfill';
 import React, {Component} from 'react'
-import reactDOM from 'react-dom'
-import {Grid, PageHeader} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.css'
-import '../styles/main.scss'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 
-class App extends Component {
-  render() {
-    return (
-      <Grid>
-        <PageHeader>
-          Hello World
-        </PageHeader>
-      </Grid>
-    )
-  }
-}
+import App from './containers/app'
+import Reducers from './actions/reducers'
 
-reactDOM.render(
-  <App />,
+const store = createStore(Reducers)
+// DOM render
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
-)
+);
