@@ -1,5 +1,8 @@
-$main-color: blue;
+.center {
+  text-align: center;
+}
 
-h1 {
-  color: $main-color;
+#search-button {
+  width: 100%;
+  height: 5rem;
 }
