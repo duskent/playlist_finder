@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
 import App from './containers/app'
+import PlaylistInput from './containers/PlaylistInput'
 import Reducers from './actions/reducers'
 
 const store = createStore(Reducers)

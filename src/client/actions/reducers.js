@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import HeaderReducer from './header/header-reducer'
+import PlaylistInputReducer from './PlaylistInput/playlist-input-reducer'
 
 const Reducers = combineReducers({
-  header: HeaderReducer
+  plalistInput: PlaylistInputReducer
 });
 
 export default Reducers;
